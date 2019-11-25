@@ -24,6 +24,17 @@ public class UserData {
 		this.city = city;
 		this.state = state;
 	}
+	
+
+	public UserData(String emailId, String firstName, String lastName, String mobile, String city, String state) {
+		super();
+		this.emailId = emailId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobile = mobile;
+		this.city = city;
+		this.state = state;
+	}
 
 	public String getMobile() {
 		return mobile;

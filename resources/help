@@ -10,15 +10,19 @@ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Ka
 
 bin/kafka-server-start.sh config/server.properties
 
-javac -cp “/home/neelamtopno/Softwares/kafka_2.12-2.3.1/libs/*” *.java
+javac -cp ï¿½/home/neelamtopno/Softwares/kafka_2.12-2.3.1/libs/*ï¿½ *.java
 
-java -cp “~/Softwares/kafka_2.12-2.3.1/libs/*”:. SimpleProducer Hello-Kafka
+java -cp ï¿½~/Softwares/kafka_2.12-2.3.1/libs/*ï¿½:. SimpleProducer Hello-Kafka
 
 git init
 
 git config --global user.email "neilgp6555@gmail.com"
 
 git config --global user.name "Neelam-Topno20"
+
+
+git remote set-url origin https://github.com/Neelam-Topno20/DemoJSessionId.git
+
 
 git remote add origin https://github.com/Neelam-Topno20/kafka.git
 

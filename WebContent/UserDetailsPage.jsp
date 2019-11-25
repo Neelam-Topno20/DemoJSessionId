@@ -61,6 +61,9 @@ if(session.getAttribute("user") == null){
 				</tr>
 				<tr>
 					<td></td>
+					<td>
+					<a href="<%=response.encodeURL("UpdateUserDetails.jsp") %>" > Update Profile</a>
+					</td>
 				</tr>
 			</table>
 	</div>
