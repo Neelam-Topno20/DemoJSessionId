@@ -15,7 +15,7 @@ import com.tal.demo.beans.UserData;
 import com.tal.demo.services.UserServices;
 import com.tal.demo.services.UserServicesImpl;
 
-@WebServlet("UpdateUserDetails")
+@WebServlet("/UpdateUserDetails")
 public class UpdateUserDetailsServlet extends HttpServlet {
 
 	UserServices userServices = new UserServicesImpl();
