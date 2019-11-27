@@ -59,7 +59,7 @@ public class LoginServletTest {
 	 
 	    @SuppressWarnings("deprecation")
 		@Test
-	    public void testDoPost_success() throws ServletException, IOException, UserDetailsNotFoundException  {
+	    public void loginServlet_testDoPost_success() throws ServletException, IOException, UserDetailsNotFoundException  {
 	    	
 	    	UserData user=new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
 	        when(request.getParameter("email")).thenReturn("neelam@gmail.com");
@@ -70,7 +70,6 @@ public class LoginServletTest {
 
 	        doNothing().when(session).setAttribute("user", user);
 	        doNothing().when(session).setMaxInactiveInterval(30);      
-	        when(response.encodeUrl("LoginSuccess.jsp")).thenReturn("");
 	        doNothing().when(response).sendRedirect("");
 	        
 		/*
@@ -80,13 +79,14 @@ public class LoginServletTest {
 		/* when(response.getWriter()).thenReturn(pw); */
 	        
 	        LoginServlet loginServlet =new LoginServlet();
-	       // loginServlet.doPost(request, response);
+	       loginServlet.doPost(request, response);
 	        
-	        //verify(loginServlet,times(1)).doPost(request, response);
+	        verify(loginServlet,times(1)).doPost(request, response);
 		/*
 		 * String result = sw.getBuffer().toString().trim(); assertEquals(result, new
 		 * String("Full Name: Vinod Kashyap"));
 		 */
 	 
 	    }
+	   
 }
