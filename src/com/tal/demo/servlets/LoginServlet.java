@@ -15,6 +15,7 @@ import com.tal.demo.beans.UserData;
 import com.tal.demo.exceptions.UserDetailsNotFoundException;
 import com.tal.demo.services.UserServices;
 import com.tal.demo.services.UserServicesImpl;
+import static com.tal.demo.constants.UserConstants.LOGIN_FAILED_MESSAGE;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -22,6 +23,9 @@ public class LoginServlet extends HttpServlet {
 	UserServices userServices= new UserServicesImpl();
 	
 	private static final long serialVersionUID = 1L;
+	/*
+	 * EndPoint authenticates the user and logs in to the application
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailId=request.getParameter("email");
 		String password=request.getParameter("password");
@@ -40,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/indexPage.jsp");
 			PrintWriter out= response.getWriter();
-			out.println("<font color=red>Either user name or password is wrong.</font>");
+			out.println(LOGIN_FAILED_MESSAGE);
 			rd.include(request, response);
 			e.printStackTrace();
 		}

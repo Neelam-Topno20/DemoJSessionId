@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.tal.demo.beans.UserData;
 import com.tal.demo.services.UserServices;
 import com.tal.demo.services.UserServicesImpl;
+import static com.tal.demo.constants.UserConstants.USER_UPDATE_FAILED_MESSAGE;
 
 @WebServlet("/UpdateUserDetails")
 public class UpdateUserDetailsServlet extends HttpServlet {
@@ -21,6 +22,9 @@ public class UpdateUserDetailsServlet extends HttpServlet {
 	UserServices userServices = new UserServicesImpl();
 	private static final long serialVersionUID = 1L;
 	
+	/*
+	 *  EndPoint to update user details
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstName=request.getParameter("firstName");
 		String lastName=request.getParameter("lastName");
@@ -38,7 +42,7 @@ public class UpdateUserDetailsServlet extends HttpServlet {
 		else {	
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserDetailsPage.jsp");
 		PrintWriter out= response.getWriter();
-		out.println("<font color=red>Could not update the Details</font>");
+		out.println(USER_UPDATE_FAILED_MESSAGE);
 		rd.include(request, response);
 		}
 	}

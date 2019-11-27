@@ -19,6 +19,10 @@ import com.tal.demo.services.UserServicesImpl;
 @WebServlet("/UserDetails")
 public class UserDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	/*
+	 * EndPoint to register a new user to the application
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstName=request.getParameter("firstName");
 		String lastName=request.getParameter("lastName");

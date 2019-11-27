@@ -1,5 +1,9 @@
 package com.tal.demo.exceptions;
 public class PayrollServicesDownException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public PayrollServicesDownException() {
 		super();
 	}
