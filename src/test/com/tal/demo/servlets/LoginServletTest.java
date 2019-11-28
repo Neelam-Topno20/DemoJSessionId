@@ -1,6 +1,5 @@
 package test.com.tal.demo.servlets;
 
-import static main.com.tal.demo.constants.UserConstants.PERSISTENCE_UNIT;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -41,17 +41,8 @@ public class LoginServletTest {
 	    @Mock
 	    HttpSession session;
 	    
-	    @Mock
-	    UserDAO userDAO;
-	    
-	    @Mock
-	    Persistence persistence;
-	    
-	    @Mock
-	    EntityManagerFactoryProvider entityManagerFactoryProvider;
-	    
-	    @Mock
-	    EntityManagerFactory factory;
+	    @InjectMocks
+	    LoginServlet loginServlet ;
 	 
 	    @Before
 	    public void setUp() throws Exception {
@@ -61,33 +52,27 @@ public class LoginServletTest {
 	    @SuppressWarnings("deprecation")
 		@Test
 	    public void loginServlet_testDoPost_success() throws ServletException, IOException, UserDetailsNotFoundException  {
-	    	
 	    	UserData user=new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
 	        when(request.getParameter("email")).thenReturn("neelam@gmail.com");
 	        when(request.getParameter("password")).thenReturn("neelam");
 	        when(request.getSession()).thenReturn(session);
 	        when(userServices.getUserDetails("neelam@gmail.com")).thenReturn(user);
 	        when(response.encodeURL("LoginSuccess.jsp")).thenReturn("");
-
 	        doNothing().when(session).setAttribute("user", user);
 	        doNothing().when(session).setMaxInactiveInterval(30);      
 	        doNothing().when(response).sendRedirect("");
-	        
-		/*
-		 * StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw);
-		 */
-	         
-		/* when(response.getWriter()).thenReturn(pw); */
-	        
-	        LoginServlet loginServlet =new LoginServlet();
-	       loginServlet.doPost(request, response);
-	        
-	        verify(loginServlet,times(1)).doPost(request, response);
-		/*
-		 * String result = sw.getBuffer().toString().trim(); assertEquals(result, new
-		 * String("Full Name: Vinod Kashyap"));
-		 */
-	 
+	        loginServlet.doPost(request, response);
+	        verify(userServices,times(1)).getUserDetails("neelam@gmail.com");
+	    }
+	    
+	    @Test()
+	    public void loginServlet_testDoPost_failure() throws ServletException, IOException, UserDetailsNotFoundException  {
+	        when(request.getParameter("email")).thenReturn("neelam@gmail.com");
+	        when(request.getParameter("password")).thenReturn("neelam");
+	        when(request.getSession()).thenReturn(session);
+	        when(userServices.getUserDetails("neelam@gmail.com")).thenReturn(null);
+	        when(response.encodeURL("LoginSuccess.jsp")).thenReturn("");
+	        loginServlet.doPost(request, response);
 	    }
 	   
 }

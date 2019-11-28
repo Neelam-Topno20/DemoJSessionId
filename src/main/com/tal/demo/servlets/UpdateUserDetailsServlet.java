@@ -35,8 +35,8 @@ public class UpdateUserDetailsServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserData tempUser=(UserData) session.getAttribute("user");
 		UserData user = new UserData(tempUser.getEmailId(), firstName, lastName, mobile, city, state);
-		
-		if(userServices.updateUserDetails(user)) {
+		boolean flag=userServices.updateUserDetails(user);
+		if(flag) {
 			String encodedURL = response.encodeURL("LoginSuccess.jsp");
 			response.sendRedirect(encodedURL);
 		}

@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.exceptions.UserDetailsNotFoundException;
@@ -38,6 +41,14 @@ public class UpdateUserDetailsServletTest {
 	    @Mock
 	    RequestDispatcher requestDispatcher;
 	    
+	    @InjectMocks
+	    UpdateUserDetailsServlet updateUserDetailsServlet ;
+
+	    @Before
+	    public void setUp() throws Exception {
+	        MockitoAnnotations.initMocks(this);
+	    }
+	    
 	 @SuppressWarnings("deprecation")
 		@Test
 	    public void updateUserDetailsServlet_testDoPost_success() throws ServletException, IOException, UserDetailsNotFoundException  {
@@ -48,9 +59,9 @@ public class UpdateUserDetailsServletTest {
 	        when(request.getParameter("mobile")).thenReturn("9123100545");
 	        when(request.getParameter("city")).thenReturn("pune");
 	        when(request.getParameter("state")).thenReturn("maharashtra");
-	        
+	        when(request.getSession()).thenReturn(session);
+	        when(session.getAttribute("user")).thenReturn(user);
 	        when(userServices.updateUserDetails(user)).thenReturn(true);
-	        
 	        when(response.encodeURL("LoginSuccess.jsp")).thenReturn("encodedURL");
 	        doNothing().when(response).sendRedirect("encodedURL");
 	        
@@ -60,7 +71,6 @@ public class UpdateUserDetailsServletTest {
 	         
 		/* when(response.getWriter()).thenReturn(pw); */
 	        
-	        UpdateUserDetailsServlet updateUserDetailsServlet =new UpdateUserDetailsServlet();
 	        updateUserDetailsServlet.doPost(request, response);
 	        
 	        verify(userServices,times(1)).updateUserDetails(user);
