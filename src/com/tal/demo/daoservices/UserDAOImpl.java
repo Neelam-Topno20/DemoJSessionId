@@ -20,12 +20,12 @@ public class UserDAOImpl implements UserDAO {
 	 * Method to persist user details
 	 */
 	@Override
-	public UserData save(UserData associate) {
+	public UserData save(UserData user) {
 		entityManager.getTransaction().begin();
-		entityManager.persist(associate);
+		entityManager.persist(user);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		return associate;
+		return user;
 	}
 
 	/*

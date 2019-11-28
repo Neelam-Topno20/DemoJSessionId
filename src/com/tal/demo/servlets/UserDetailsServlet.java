@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.el.parser.ParseException;
 
 import com.tal.demo.beans.UserData;
+import com.tal.demo.exceptions.UserServicesDownException;
 import com.tal.demo.services.UserServices;
 import com.tal.demo.services.UserServicesImpl;
 @WebServlet("/UserDetails")
@@ -33,7 +34,11 @@ public class UserDetailsServlet extends HttpServlet {
 		String state = request.getParameter("state");
 		UserData user = new UserData(emailId, firstName, lastName, password, mobile, city, state);
 		UserServices userServices = new UserServicesImpl();
-		user=userServices.acceptUserDetails(user);
+		try {
+			user=userServices.acceptUserDetails(user);
+		} catch (UserServicesDownException e) {
+			e.printStackTrace();
+		}
 		request.setAttribute("user", user);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationSuccess.jsp");
 		dispatcher.forward(request, response);

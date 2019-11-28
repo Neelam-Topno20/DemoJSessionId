@@ -37,6 +37,10 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
 					<td><input type="email" name="emailId"></td>
 				</tr>
 				<tr>
+					<td>Password</td>
+					<td><input type="password" name="password"></td>
+				</tr>
+				<tr>
 					<td>Mobile No</td>
 					<td><input type="text" name="mobile"></td>
 				</tr>
