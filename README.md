@@ -5,14 +5,12 @@
 
 ## Table of Contents (Optional)
 
-> If your `README` has a lot of info, section headers might be nice.
-
-- [Build Project](#buildproject)
-- [Testing the Application](#Testing the Application)
+- [Build Project](#Buildproject)
+- [Testing the Application](#TestingApplication)
 
 ---
 
-## buildproject
+## Buildproject
 
 
 ### Clone
@@ -33,10 +31,11 @@
 
 ---
 
-## Testing the Application
+## TestingApplication
 
-- Going into more detail on code and technologies used
-- I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
+- Open test source folder 
+
+- Run the test classes as junits
 
 ---
 
