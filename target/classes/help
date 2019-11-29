@@ -43,6 +43,11 @@ git diff --cached
 
 git commit -m "added help file"
 
+git checkout -b branch_name
+
+git push -u origin feature_eclipse_link
+ 
+
 ----------------------------------
 
 sudo systemctl enable cassandra
