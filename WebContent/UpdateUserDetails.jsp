@@ -1,3 +1,4 @@
+<%@page import="main.com.tal.demo.beans.UserData"%>
 <%@ page session="false" %>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,13 @@ body {
 response.setHeader("Cache-Control","no-store");
 response.setHeader("Pragma","no-cache");
 response.setHeader ("Expires", "0"); //prevents caching at the proxy server
+
+//allow access only if session exists
+HttpSession session=request.getSession(false);
+UserData user = (UserData)session.getAttribute("user");
+if(user == null){
+	response.sendRedirect("indexPage.jsp");
+}
 %>
 	<div align="center">
 		<h1>Update User Details Form</h1>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import main.com.tal.demo.beans.UserData;
+import main.com.tal.demo.exceptions.UserDetailsNotFoundException;
 import main.com.tal.demo.services.UserServices;
 import main.com.tal.demo.services.UserServicesImpl;
 
@@ -26,19 +27,30 @@ public class UpdateUserDetailsServlet extends HttpServlet {
 	 * EndPoint to update user details
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		UserData user= (UserData) session.getAttribute("user");
+		if(user==null) {
+			response.sendRedirect("indexPage.jsp");
+		}
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String mobile = request.getParameter("mobile");
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
-		HttpSession session = request.getSession();
 		UserData tempUser = (UserData) session.getAttribute("user");
-		UserData user = new UserData(tempUser.getEmailId(), firstName, lastName, mobile, city, state);
+		 user=new UserData(tempUser.getEmailId(), firstName, lastName, tempUser.getPassword(), mobile, city, state);
 		UserServices userServices = new UserServicesImpl();
 		boolean flag = userServices.updateUserDetails(user);
 		if (flag) {
-			String encodedURL = response.encodeURL("LoginSuccess.jsp");
-			response.sendRedirect(encodedURL);
+			try {
+				user=userServices.getUserDetails(tempUser.getEmailId());
+			} catch (UserDetailsNotFoundException e) {
+				e.printStackTrace();
+			}
+			session.setAttribute("user", user);
+			session.setMaxInactiveInterval(30);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("LoginSuccess.jsp");
+			dispatcher.forward(request, response);
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserDetailsPage.jsp");
 			PrintWriter out = response.getWriter();

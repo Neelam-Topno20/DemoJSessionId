@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.exceptions.UserServicesDownException;
 import main.com.tal.demo.services.UserServices;
@@ -20,6 +22,11 @@ public class UserDetailsServlet extends HttpServlet {
 	 * EndPoint to register a new user to the application
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		UserData user= (UserData) session.getAttribute("user");
+		if(user==null) {
+			response.sendRedirect("indexPage.jsp");
+		}
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String emailId = request.getParameter("emailId");
@@ -27,7 +34,7 @@ public class UserDetailsServlet extends HttpServlet {
 		String mobile = request.getParameter("mobile");
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
-		UserData user = new UserData(emailId, firstName, lastName, password, mobile, city, state);
+		 user = new UserData(emailId, firstName, lastName, password, mobile, city, state);
 		UserServices userServices = new UserServicesImpl();
 		try {
 			user = userServices.acceptUserDetails(user);

@@ -21,8 +21,7 @@ public class UserServicesImpl implements UserServices {
 	 */
 	@Override
 	public UserData getUserDetails(String emailId) throws UserDetailsNotFoundException {
-		UserData user;
-		user = userDAO.findOne(emailId);
+		UserData user = userDAO.findOne(emailId);
 		if (user == null)
 			throw new UserDetailsNotFoundException(USER_DETAILS_NOT_FOUND_MESSAGE);
 		return user;
