@@ -83,3 +83,16 @@ INSERT INTO wordcount(word_id,word,count) VALUES();
                         <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
                 </properties>
         </persistence-unit> -->
+        
+        <!-- <persistence-unit name="h2-eclipselink" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.vogella.jpa.model.Todo</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/h2db/vogellaDB" />
+            <property name="javax.persistence.jdbc.user" value="sa" />
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            <property name="eclipselink.logging.level" value="FINE" />
+        </properties>
+    </persistence-unit> -->

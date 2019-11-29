@@ -5,6 +5,9 @@ import javax.persistence.Id;
 
 @Entity
 public class UserData {
+	/**
+	 * 
+	 */
 	@Id
 	private String emailId;
 	private String firstName, lastName, password, mobile, city, state;

@@ -9,6 +9,6 @@ public interface UserConstants {
 	public static final String LOGIN_FAILED_MESSAGE="<font color=red>Either user name or password is wrong.</font>";
 	public static final String USER_UPDATE_FAILED_MESSAGE="<font color=red>Could not update the Details</font>";
 	public static final String PROPERTIES_FILE_PATH=".//resources//demojsessionid.properties";
-	public static final String PERSISTENCE_UNIT="JPA-PU";
+	public static final String PERSISTENCE_UNIT="h2-eclipselink";
 
 }
