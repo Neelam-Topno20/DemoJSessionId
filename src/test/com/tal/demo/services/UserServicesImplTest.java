@@ -86,4 +86,12 @@ public class UserServicesImplTest {
 		userService.updateUserDetails(user);
 		verify(userDAO, times(1)).update(user);
 	}
+
+	@Test
+	public void updateUserDetails_test_failure() throws UserServicesDownException {
+		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
+		when(userDAO.update(user)).thenReturn(false);
+		userService.updateUserDetails(user);
+		verify(userDAO, times(1)).update(user);
+	}
 }

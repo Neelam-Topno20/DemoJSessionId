@@ -20,31 +20,30 @@ import main.com.tal.demo.services.UserServicesImpl;
 @WebServlet("/UpdateUserDetails")
 public class UpdateUserDetailsServlet extends HttpServlet {
 
-	UserServices userServices = new UserServicesImpl();
 	private static final long serialVersionUID = 1L;
-	
+
 	/*
-	 *  EndPoint to update user details
+	 * EndPoint to update user details
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String firstName=request.getParameter("firstName");
-		String lastName=request.getParameter("lastName");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
 		String mobile = request.getParameter("mobile");
-		String city= request.getParameter("city");
+		String city = request.getParameter("city");
 		String state = request.getParameter("state");
 		HttpSession session = request.getSession();
-		UserData tempUser=(UserData) session.getAttribute("user");
+		UserData tempUser = (UserData) session.getAttribute("user");
 		UserData user = new UserData(tempUser.getEmailId(), firstName, lastName, mobile, city, state);
-		boolean flag=userServices.updateUserDetails(user);
-		if(flag) {
+		UserServices userServices = new UserServicesImpl();
+		boolean flag = userServices.updateUserDetails(user);
+		if (flag) {
 			String encodedURL = response.encodeURL("LoginSuccess.jsp");
 			response.sendRedirect(encodedURL);
-		}
-		else {	
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserDetailsPage.jsp");
-		PrintWriter out= response.getWriter();
-		out.println(USER_UPDATE_FAILED_MESSAGE);
-		rd.include(request, response);
+		} else {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserDetailsPage.jsp");
+			PrintWriter out = response.getWriter();
+			out.println(USER_UPDATE_FAILED_MESSAGE);
+			rd.include(request, response);
 		}
 	}
 }

@@ -20,36 +20,33 @@ import main.com.tal.demo.services.UserServicesImpl;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	
-	UserServices userServices= new UserServicesImpl();
-	
+
+	UserServices userServices = new UserServicesImpl();
+
 	private static final long serialVersionUID = 1L;
+
 	/*
 	 * EndPoint authenticates the user and logs in to the application
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String emailId=request.getParameter("email");
-		String password=request.getParameter("password");
+		String emailId = request.getParameter("email");
+		String password = request.getParameter("password");
 		try {
-			UserData user=userServices.getUserDetails(emailId);
+			UserData user = userServices.getUserDetails(emailId);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-			//setting session to expiry in 30 mins
+			// setting session to expiry in 30 mins
 			session.setMaxInactiveInterval(30);
-			//Cookie userName = new Cookie("user", user);
-			//response.addCookie(userName);
-			
 			String encodedURL = response.encodeURL("LoginSuccess.jsp");
 			response.sendRedirect(encodedURL);
 		} catch (UserDetailsNotFoundException e) {
-			
+
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/indexPage.jsp");
-			PrintWriter out= response.getWriter();
+			PrintWriter out = response.getWriter();
 			out.println(LOGIN_FAILED_MESSAGE);
 			rd.include(request, response);
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }

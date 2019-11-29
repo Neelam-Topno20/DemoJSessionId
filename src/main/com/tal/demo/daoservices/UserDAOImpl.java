@@ -35,10 +35,13 @@ public class UserDAOImpl implements UserDAO {
 	public boolean update(UserData user) {
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(user);
+			user = entityManager.merge(user);
 			entityManager.getTransaction().commit();
 			entityManager.close();
-			return true;
+			if (user == null)
+				return false;
+			else
+				return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,7 +65,8 @@ public class UserDAOImpl implements UserDAO {
 		Query query = entityManager.createQuery(FIND_ALL_QUERY);
 		@SuppressWarnings("unchecked")
 		ArrayList<UserData> list = (ArrayList<UserData>) query.getResultList();
-		list.sort(Comparator.comparing(u -> u.getFirstName()));
+		if (list != null)
+			list.sort(Comparator.comparing(u -> u.getFirstName()));
 		return list;
 	}
 }

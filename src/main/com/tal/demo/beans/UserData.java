@@ -1,14 +1,14 @@
 package main.com.tal.demo.beans;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 @Entity
 public class UserData {
 	@Id
 	private String emailId;
-	private String firstName,lastName,password,mobile,city,state;
-	
+	private String firstName, lastName, password, mobile, city, state;
+
 	public UserData() {
 		super();
 	}
@@ -24,7 +24,6 @@ public class UserData {
 		this.city = city;
 		this.state = state;
 	}
-	
 
 	public UserData(String emailId, String firstName, String lastName, String mobile, String city, String state) {
 		super();
@@ -91,5 +90,5 @@ public class UserData {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }
