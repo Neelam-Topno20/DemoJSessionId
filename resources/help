@@ -66,6 +66,13 @@ $ git checkout .
 
 $ git branch
 
+git push --delete origin branch_name
+
+git fetch origin --prune
+
+git checkout -b feature_embedded_tomcat
+
+git push origin feature_embedded_tomcat
 ----------------------------------
 
 sudo systemctl enable cassandra
