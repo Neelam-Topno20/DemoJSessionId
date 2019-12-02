@@ -47,6 +47,24 @@ git checkout -b branch_name
 
 git push -u origin feature_eclipse_link
  
+ 
+git stash save
+
+# make a change
+echo branch2 content >> file.txt
+
+#view file
+cat file.txt
+
+# retrieve the stashed changes and apply them over the fresh orignal
+# branch checkout
+$ git stash pop
+
+# perform a checkout of all files to fetch files as we left them in
+# in the original branch
+$ git checkout .
+
+$ git branch
 
 ----------------------------------
 
