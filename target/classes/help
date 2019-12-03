@@ -73,6 +73,12 @@ git fetch origin --prune
 git checkout -b feature_embedded_tomcat
 
 git push origin feature_embedded_tomcat
+
+# Print out the list of files which will be removed (dry run)
+git clean -n
+
+# Delete the files from the repository
+git clean -f
 ----------------------------------
 
 sudo systemctl enable cassandra
