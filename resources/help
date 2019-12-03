@@ -14,71 +14,97 @@ javac -cp �/home/neelamtopno/Softwares/kafka_2.12-2.3.1/libs/*� *.java
 
 java -cp �~/Softwares/kafka_2.12-2.3.1/libs/*�:. SimpleProducer Hello-Kafka
 
-git init
+----------------------------------------------------------------------------
+GIT COMMANDS
 
-git config --global user.email "neilgp6555@gmail.com"
+1. Initilizing repo
 
-git config --global user.name "Neelam-Topno20"
+	git init 
+
+	git config --global user.email "neilgp6555@gmail.com"
+
+	git config --global user.name "Neelam-Topno20"
 
 
-git remote set-url origin https://github.com/Neelam-Topno20/DemoJSessionId.git
+	git remote set-url origin https://github.com/Neelam-Topno20/DemoJSessionId.git
 
 
-git remote add origin https://github.com/Neelam-Topno20/kafka.git
+	git remote add origin https://github.com/Neelam-Topno20/kafka.git
 
-git remote -v
+	git remote -v
 
-git push origin master
+2. Pushing changes to remote
 
-git diff HEAD
+	git push origin master
 
-git status
+	git diff HEAD
 
-git add -A stages all changes
-git add . stages new files and modifications, without deletions
+3. Staging unstaged files
 
-git add -u stages modifications and deletions, without new files
+	git status
 
-git diff --cached
+	git add -A stages all changes
+	git add . stages new files and modifications, without deletions
 
-git commit -m "added help file"
+	git add -u stages modifications and deletions, without new files
 
-git checkout -b branch_name
+	git diff --cached
 
-git push -u origin feature_eclipse_link
+4. Commiting changes to local
+
+	git commit -m "added help file"
+
+5. Creating and pushing a new branch
+
+	git checkout -b branch_name
+
+	git push -u origin feature_eclipse_link
  
+ 6. Stashing the changes from a repo for future
  
-git stash save
+	git stash save
 
-# make a change
-echo branch2 content >> file.txt
+7. Modifying a file and viewing the changes
 
-#view file
-cat file.txt
+	# make a change
+	echo branch2 content >> file.txt
 
-# retrieve the stashed changes and apply them over the fresh orignal
-# branch checkout
-$ git stash pop
+	#view file
+	cat file.txt
 
-# perform a checkout of all files to fetch files as we left them in
-# in the original branch
-$ git checkout .
+	# retrieve the stashed changes and apply them over the fresh orignal
+	# branch checkout
+	$ git stash pop
 
-$ git branch
 
-git push --delete origin branch_name
+8. perform a checkout of all files to fetch files as we left them in
+in the original branch
+	$ git checkout .
 
-git fetch origin --prune
+9. view all the branches in local
 
-git checkout -b feature_embedded_tomcat
+	$ git branch
 
-git push origin feature_embedded_tomcat
+10. Deleting a branch in remote
 
-# Print out the list of files which will be removed (dry run)
-git clean -n
+	git push --delete origin branch_name
 
-# Delete the files from the repository
-git clean -f
+11. fetch all the changes in local
+
+	git fetch origin --prune 
+	git checkout -b feature_embedded_tomcat
+
+	git push origin feature_embedded_tomcat
+
+12. Deleting unstaged files
+
+	# Print out the list of files which will be removed (dry run)
+	git clean -n
+
+	# Delete the files from the repository
+	git clean -f
+
+
 ----------------------------------
 
 sudo systemctl enable cassandra
