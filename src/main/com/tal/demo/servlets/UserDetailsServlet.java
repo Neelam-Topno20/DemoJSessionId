@@ -27,23 +27,24 @@ public class UserDetailsServlet extends HttpServlet {
 		if(user==null) {
 			response.sendRedirect("indexPage.jsp");
 		}
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String emailId = request.getParameter("emailId");
-		String password = request.getParameter("password");
-		String mobile = request.getParameter("mobile");
-		String city = request.getParameter("city");
-		String state = request.getParameter("state");
-		 user = new UserData(emailId, firstName, lastName, password, mobile, city, state);
-		UserServices userServices = new UserServicesImpl();
-		try {
-			user = userServices.acceptUserDetails(user);
-			request.setAttribute("user", user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationSuccess.jsp");
-			dispatcher.forward(request, response);
-		} catch (UserServicesDownException e) {
-			e.printStackTrace();
+		else {
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String emailId = request.getParameter("emailId");
+			String password = request.getParameter("password");
+			String mobile = request.getParameter("mobile");
+			String city = request.getParameter("city");
+			String state = request.getParameter("state");
+			 user = new UserData(emailId, firstName, lastName, password, mobile, city, state);
+			UserServices userServices = new UserServicesImpl();
+			try {
+				user = userServices.acceptUserDetails(user);
+				request.setAttribute("user", user);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationSuccess.jsp");
+				dispatcher.forward(request, response);
+			} catch (UserServicesDownException e) {
+				e.printStackTrace();
+			}
 		}
-
 	}
 }

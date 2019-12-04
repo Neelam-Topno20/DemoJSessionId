@@ -32,6 +32,8 @@ public class UpdateUserDetailsServlet extends HttpServlet {
 		if(user==null) {
 			response.sendRedirect("indexPage.jsp");
 		}
+		else
+		{
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String mobile = request.getParameter("mobile");
@@ -56,6 +58,7 @@ public class UpdateUserDetailsServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.println(USER_UPDATE_FAILED_MESSAGE);
 			rd.include(request, response);
+		}
 		}
 	}
 }

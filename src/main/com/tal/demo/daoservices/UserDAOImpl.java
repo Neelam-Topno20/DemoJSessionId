@@ -38,10 +38,10 @@ public class UserDAOImpl implements UserDAO {
 		EntityManager entityManager = factory.createEntityManager();
 		try {
 			entityManager.getTransaction().begin();
-			user = entityManager.merge(user);
+			UserData user2 = entityManager.merge(user);
 			entityManager.getTransaction().commit();
 			entityManager.close();
-			if (user == null)
+			if (user2 == null)
 				return false;
 			else
 				return true;
@@ -58,7 +58,11 @@ public class UserDAOImpl implements UserDAO {
 	public UserData findOne(String emailId) {
 		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
 		EntityManager entityManager = factory.createEntityManager();
-		return entityManager.find(UserData.class, emailId);
+		UserData user= entityManager.find(UserData.class, emailId);
+		if(user!=null)
+		return user;
+		else
+		return null;
 	}
 
 	/*

@@ -70,7 +70,7 @@ public class UserServicesImplTest {
 		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
 		when(userDAO.save(user)).thenReturn(user);
 		userService.acceptUserDetails(user);
-		verify(userDAO, times(2)).save(ArgumentMatchers.any(UserData.class));
+		verify(userDAO, times(1)).save(ArgumentMatchers.any(UserData.class));
 	}
 
 	@Test(expected = UserServicesDownException.class)
