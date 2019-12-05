@@ -2,8 +2,8 @@ package main.com.tal.demo.daoservices;
 
 import static main.com.tal.demo.constants.UserConstants.FIND_ALL_QUERY;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +13,6 @@ import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.util.EntityManagerFactoryProvider;;
 
 public class UserDAOImpl implements UserDAO {
-	
 
 	/*
 	 * Method to persist user details
@@ -58,11 +57,11 @@ public class UserDAOImpl implements UserDAO {
 	public UserData findOne(String emailId) {
 		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
 		EntityManager entityManager = factory.createEntityManager();
-		UserData user= entityManager.find(UserData.class, emailId);
-		if(user!=null)
-		return user;
+		UserData user = entityManager.find(UserData.class, emailId);
+		if (user != null)
+			return user;
 		else
-		return null;
+			return null;
 	}
 
 	/*
@@ -70,12 +69,12 @@ public class UserDAOImpl implements UserDAO {
 	 * order according to the first name.
 	 */
 	@Override
-	public ArrayList<UserData> findAll() {
+	public List<UserData> findAll() {
 		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
 		EntityManager entityManager = factory.createEntityManager();
 		Query query = entityManager.createQuery(FIND_ALL_QUERY);
 		@SuppressWarnings("unchecked")
-		ArrayList<UserData> list = (ArrayList<UserData>) query.getResultList();
+		List<UserData> list = query.getResultList();
 		if (list != null)
 			list.sort(Comparator.comparing(u -> u.getFirstName()));
 		return list;

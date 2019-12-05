@@ -1,7 +1,6 @@
 package test.com.tal.demo.daoservices;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -27,7 +26,6 @@ import org.mockito.MockitoAnnotations;
 
 import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.daoservices.UserDAOImpl;
-import main.com.tal.demo.util.EntityManagerFactoryProvider;
 
 public class UserDAOImplTest {
 	@Mock
@@ -82,7 +80,6 @@ public class UserDAOImplTest {
 		when(entityManager.getTransaction()).thenReturn(transaction);
 		when(entityManager.merge(user)).thenReturn(null);
 		doNothing().when(entityManager).close();
-		boolean flag = userDAO.update(user);
 		verify(entityManager, times(0)).merge(user);
 	}
 
@@ -105,7 +102,7 @@ public class UserDAOImplTest {
 		userList.add(user2);
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(query.getResultList()).thenReturn((List<UserData>) userList);
-		ArrayList<UserData> userListActual = userDAO.findAll();
+		List<UserData> userListActual = userDAO.findAll();
 		assertNotNull(userListActual);
 	}
 
@@ -118,7 +115,7 @@ public class UserDAOImplTest {
 		userList.add(user2);
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(query.getResultList()).thenReturn(null);
-		ArrayList<UserData> userListActual = userDAO.findAll();
+		List<UserData> userListActual = userDAO.findAll();
 		if (userListActual.isEmpty())
 			assertTrue(true);
 	}

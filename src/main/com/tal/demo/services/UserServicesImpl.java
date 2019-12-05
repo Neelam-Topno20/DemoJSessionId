@@ -4,7 +4,7 @@ import static main.com.tal.demo.constants.UserConstants.USER_DETAILS_LIST_NOT_FO
 import static main.com.tal.demo.constants.UserConstants.USER_DETAILS_NOT_FOUND_MESSAGE;
 import static main.com.tal.demo.constants.UserConstants.USER_SERVICES_DOWN_MESSAGE;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.daoservices.UserDAO;
@@ -31,11 +31,10 @@ public class UserServicesImpl implements UserServices {
 	 * Method to retrieve the list of details of all the users
 	 */
 	@Override
-	public ArrayList<UserData> getAllUserDetails() throws UserDetailsListNotFoundException {
-		ArrayList<UserData> userList = userDAO.findAll();
+	public List<UserData> getAllUserDetails() throws UserDetailsListNotFoundException {
+		List<UserData> userList = userDAO.findAll();
 		if (userList == null)
 			throw new UserDetailsListNotFoundException(USER_DETAILS_LIST_NOT_FOUND_MESSAGE);
-
 		return userList;
 	}
 

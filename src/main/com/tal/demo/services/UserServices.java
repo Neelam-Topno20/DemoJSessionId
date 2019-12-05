@@ -1,5 +1,5 @@
 package main.com.tal.demo.services;
-import java.util.ArrayList;
+import java.util.List;
 
 import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.exceptions.UserDetailsListNotFoundException;
@@ -9,7 +9,7 @@ import main.com.tal.demo.exceptions.UserServicesDownException;
 public interface UserServices {
 	
 	UserData getUserDetails(String emailId) throws UserDetailsNotFoundException;
-	ArrayList<UserData> getAllUserDetails()throws UserDetailsListNotFoundException;
+	List<UserData> getAllUserDetails()throws UserDetailsListNotFoundException;
 	UserData acceptUserDetails(UserData user) throws UserServicesDownException;
 	boolean updateUserDetails(UserData user);
 }
