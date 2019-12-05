@@ -52,9 +52,8 @@ public class UserDAOImplTest {
 
 	@Test
 	public void findOne_test_success() {
-		
-		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune",
-				"Maharashtra");
+
+		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
 		when(entityManager.find(UserData.class, "neelam@gmail.com")).thenReturn(user);
 		user = userDAO.findOne("neelam@gmail.com");
 		assertEquals(user, user);
@@ -77,14 +76,16 @@ public class UserDAOImplTest {
 		assertTrue(flag);
 	}
 
-	/*
-	 * @Test public void update_test_failure() { UserData user = new
-	 * UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune",
-	 * "Maharashtra"); when(entityManager.getTransaction()).thenReturn(transaction);
-	 * when(entityManager.merge(user)).thenReturn(null);
-	 * doNothing().when(entityManager).close(); boolean flag = userDAO.update(user);
-	 * assertFalse(flag); }
-	 */
+	@Test
+	public void update_test_failure() {
+		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
+		when(entityManager.getTransaction()).thenReturn(transaction);
+		when(entityManager.merge(user)).thenReturn(null);
+		doNothing().when(entityManager).close();
+		boolean flag = userDAO.update(user);
+		verify(entityManager, times(0)).merge(user);
+	}
+
 	@Test
 	public void save_test_success() {
 		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
@@ -103,9 +104,9 @@ public class UserDAOImplTest {
 		userList.add(user);
 		userList.add(user2);
 		when(entityManager.createQuery(anyString())).thenReturn(query);
-		when(query.getResultList()).thenReturn((List<UserData>)userList);
-		 ArrayList<UserData> userListActual=userDAO.findAll();
-		 assertNotNull(userListActual);
+		when(query.getResultList()).thenReturn((List<UserData>) userList);
+		ArrayList<UserData> userListActual = userDAO.findAll();
+		assertNotNull(userListActual);
 	}
 
 	@Test
@@ -117,8 +118,8 @@ public class UserDAOImplTest {
 		userList.add(user2);
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(query.getResultList()).thenReturn(null);
-		 ArrayList<UserData> userListActual=userDAO.findAll();
-		 if(userListActual.isEmpty())
-			 assertTrue(true);
+		ArrayList<UserData> userListActual = userDAO.findAll();
+		if (userListActual.isEmpty())
+			assertTrue(true);
 	}
 }

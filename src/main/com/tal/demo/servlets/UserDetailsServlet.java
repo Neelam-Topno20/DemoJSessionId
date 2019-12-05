@@ -24,7 +24,8 @@ public class UserDetailsServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		UserData user= (UserData) session.getAttribute("user");
-		if(user==null) {
+		
+		if(session.getId()==null ) {
 			response.sendRedirect("indexPage.jsp");
 		}
 		else {
