@@ -103,6 +103,15 @@ in the original branch
 
 	# Delete the files from the repository
 	git clean -f
+	
+13. To see the commits of a branch except that of master
+	git log feature_update_user --not master
+	
+14. To see the branches present in remote
+	git branch -r
+	
+15. To delete all branches in local except master
+	alias gbr="git branch | grep -v "master" | xargs git branch -D"
 
 
 ----------------------------------
