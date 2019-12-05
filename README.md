@@ -20,12 +20,7 @@
 ### Setup
 
 - Maven --> Update Maven Project
-
-- Download the tomcat server using `https://tomcat.apache.org/download-90.cgi` 
-
-- Extract tomcat server; add server to the ide (add the path of the extracted tomcat directory)
-
-- Run the application on Server
+- Run  /DemoJSessionId/src/main/com/tal/demo/boot/MainClass.java as Java Application
 
 
 ---
