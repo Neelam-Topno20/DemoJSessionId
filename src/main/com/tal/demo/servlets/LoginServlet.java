@@ -29,16 +29,34 @@ public class LoginServlet extends HttpServlet {
 	 * EndPoint authenticates the user and logs in to the application
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String emailId = request.getParameter("email");
-		String password = request.getParameter("password");
+		HttpSession session = request.getSession(false);
+		UserData user= (UserData) session.getAttribute("user");
+		String emailId = "";
+		String password="";
 		try {
-			UserData user = userServices.getUserDetails(emailId);
-			HttpSession session = request.getSession();
+		if(user==null) {
+		 emailId = request.getParameter("email");
+		 password = request.getParameter("password");
+		 user = userServices.getUserDetails(emailId);
 			session.setAttribute("user", user);
-			// setting session to expiry in 30 mins
 			session.setMaxInactiveInterval(30);
 			String encodedURL = response.encodeURL("LoginSuccess.jsp");
 			response.sendRedirect(encodedURL);
+		}
+		else
+		{
+			session.setMaxInactiveInterval(30);
+			response.encodeURL("LoginSuccess.jsp");
+
+			RequestDispatcher requestDispatcher=request.getRequestDispatcher("LoginSuccess.jsp");
+			requestDispatcher.forward(request, response);
+		}
+	
+			// setting session to expiry in 30 mins
+			/*
+			 * session.setMaxInactiveInterval(30); String encodedURL =
+			 * response.encodeURL("LoginSuccess.jsp"); response.sendRedirect(encodedURL);
+			 */
 		} catch (UserDetailsNotFoundException e) {
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/indexPage.jsp");

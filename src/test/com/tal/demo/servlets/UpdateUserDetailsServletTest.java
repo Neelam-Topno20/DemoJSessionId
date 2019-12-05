@@ -4,6 +4,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -45,6 +46,10 @@ public class UpdateUserDetailsServletTest {
 
 	@Mock
 	ServletContext ServletContext;
+	
+	@Mock
+	PrintWriter printWriter;
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -61,11 +66,36 @@ public class UpdateUserDetailsServletTest {
 		when(request.getParameter("mobile")).thenReturn("9123100545");
 		when(request.getParameter("city")).thenReturn("pune");
 		when(request.getParameter("state")).thenReturn("maharashtra");
-		when(request.getSession()).thenReturn(session);
-		when(session.getAttribute("user")).thenReturn(user);
+		when(request.getSession(false)).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(user).thenReturn(user);
+		doNothing().when(session).setAttribute("user", user);
+		doNothing().when(session).setMaxInactiveInterval(30);;
+		doNothing().when(response).sendRedirect("indexPage.jsp");
 		when(userServices.updateUserDetails(user)).thenReturn(true);
-		when(response.encodeURL("LoginSuccess.jsp")).thenReturn("encodedURL");
-		doNothing().when(response).sendRedirect("encodedURL");
+		when(userServices.getUserDetails("neelam@gmail.com")).thenReturn(user);
+		doNothing().when(requestDispatcher).forward(request, response);
+		when(request.getRequestDispatcher("LoginSuccess.jsp")).thenReturn(requestDispatcher);
+		updateUserDetailsServlet.doPost(request, response);
+	}
+	@Test
+	public void updateUserDetailsServlet_testDoPost_failure()
+			throws ServletException, IOException, UserDetailsNotFoundException {
+		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
+		when(request.getParameter("firstName")).thenReturn("neelam");
+		when(request.getParameter("lastName")).thenReturn("topno");
+		when(request.getParameter("mobile")).thenReturn("9123100545");
+		when(request.getParameter("city")).thenReturn("pune");
+		when(request.getParameter("state")).thenReturn("maharashtra");
+		when(request.getSession(false)).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(user).thenReturn(user);
+		doNothing().when(session).setAttribute("user", user);
+		doNothing().when(session).setMaxInactiveInterval(30);;
+		doNothing().when(response).sendRedirect("indexPage.jsp");
+		when(userServices.updateUserDetails(user)).thenReturn(false);
+		doNothing().when(requestDispatcher).include(request, response);
+		when(response.getWriter()).thenReturn(printWriter);
+		doNothing().when(requestDispatcher).forward(request, response);
+		when(request.getRequestDispatcher("LoginSuccess.jsp")).thenReturn(requestDispatcher);
 		updateUserDetailsServlet.doPost(request, response);
 	}
 }

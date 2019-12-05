@@ -13,14 +13,15 @@ import main.com.tal.demo.beans.UserData;
 import main.com.tal.demo.util.EntityManagerFactoryProvider;;
 
 public class UserDAOImpl implements UserDAO {
-	EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
-	EntityManager entityManager = factory.createEntityManager();
+	
 
 	/*
 	 * Method to persist user details
 	 */
 	@Override
 	public UserData save(UserData user) {
+		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
+		EntityManager entityManager = factory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(user);
 		entityManager.getTransaction().commit();
@@ -33,12 +34,14 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public boolean update(UserData user) {
+		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
+		EntityManager entityManager = factory.createEntityManager();
 		try {
 			entityManager.getTransaction().begin();
-			user = entityManager.merge(user);
+			UserData user2 = entityManager.merge(user);
 			entityManager.getTransaction().commit();
 			entityManager.close();
-			if (user == null)
+			if (user2 == null)
 				return false;
 			else
 				return true;
@@ -53,7 +56,13 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public UserData findOne(String emailId) {
-		return entityManager.find(UserData.class, emailId);
+		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
+		EntityManager entityManager = factory.createEntityManager();
+		UserData user= entityManager.find(UserData.class, emailId);
+		if(user!=null)
+		return user;
+		else
+		return null;
 	}
 
 	/*
@@ -62,6 +71,8 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	@Override
 	public ArrayList<UserData> findAll() {
+		EntityManagerFactory factory = EntityManagerFactoryProvider.getEntityManagerFactory();
+		EntityManager entityManager = factory.createEntityManager();
 		Query query = entityManager.createQuery(FIND_ALL_QUERY);
 		@SuppressWarnings("unchecked")
 		ArrayList<UserData> list = (ArrayList<UserData>) query.getResultList();

@@ -62,6 +62,19 @@ public class UserDetailsServletTest {
 		doNothing().when(request).setAttribute("user", user);
 		when(request.getRequestDispatcher("RegistrationSuccess.jsp")).thenReturn(requestDispatcher);
 		doNothing().when(requestDispatcher).forward(request, response);
+		doNothing().when(response).sendRedirect("indexPage.jsp");
+		when(request.getSession(false)).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(user);
+
+		userDetailsServlet.doPost(request, response);
+	}
+	@Test
+	public void userDetailsServlet_testDoPost_failure()
+			throws ServletException, IOException, UserDetailsNotFoundException, UserServicesDownException {
+		doNothing().when(response).sendRedirect("indexPage.jsp");
+		when(request.getSession(false)).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(null);
+
 		userDetailsServlet.doPost(request, response);
 	}
 }

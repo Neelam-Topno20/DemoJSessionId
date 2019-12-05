@@ -146,15 +146,16 @@ INSERT INTO wordcount(word_id,word,count) VALUES();
                 </properties>
         </persistence-unit> -->
         
-        <!-- <persistence-unit name="h2-eclipselink" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>com.vogella.jpa.model.Todo</class>
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/h2db/vogellaDB" />
-            <property name="javax.persistence.jdbc.user" value="sa" />
-            <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
-            <property name="eclipselink.ddl-generation.output-mode" value="database" />
-            <property name="eclipselink.logging.level" value="FINE" />
-        </properties>
-    </persistence-unit> -->
+        
+h2 DATABASE        
+driver=org.h2.Driver
+url=jdbc:h2:mem:JPA-PU
+user=system
+password=system
+
+Oracle Database
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@127.0.0.1:1521:XE
+user=system
+password=system
+

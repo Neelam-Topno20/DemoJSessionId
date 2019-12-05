@@ -6,7 +6,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +40,11 @@ public class LoginServletTest {
 
 	@InjectMocks
 	LoginServlet loginServlet;
+	
+	@Mock
+	RequestDispatcher requestDispatcher;
+	@Mock
+	PrintWriter printWriter;
 
 	@Before
 	public void setUp() throws Exception {
@@ -49,12 +56,15 @@ public class LoginServletTest {
 		UserData user = new UserData("neelam@gmail.com", "Neelam", "Topno", "9905303708", "Pune", "Maharashtra");
 		when(request.getParameter("email")).thenReturn("neelam@gmail.com");
 		when(request.getParameter("password")).thenReturn("neelam");
-		when(request.getSession()).thenReturn(session);
+		when(request.getSession(false)).thenReturn(session);
 		when(userServices.getUserDetails("neelam@gmail.com")).thenReturn(user);
 		when(response.encodeURL("LoginSuccess.jsp")).thenReturn("");
 		doNothing().when(session).setAttribute("user", user);
 		doNothing().when(session).setMaxInactiveInterval(30);
 		doNothing().when(response).sendRedirect("");
+		when(session.getAttribute("user")).thenReturn(null);
+		when(request.getRequestDispatcher("LoginSuccess.jsp")).thenReturn(requestDispatcher);
+		doNothing().when(requestDispatcher).forward(request, response);
 		loginServlet.doPost(request, response);
 		verify(userServices, times(1)).getUserDetails("neelam@gmail.com");
 	}
@@ -63,7 +73,10 @@ public class LoginServletTest {
 	public void loginServlet_testDoPost_failure() throws ServletException, IOException, UserDetailsNotFoundException {
 		when(request.getParameter("email")).thenReturn("neelam@gmail.com");
 		when(request.getParameter("password")).thenReturn("neelam");
-		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(null);
+		when(response.getWriter()).thenReturn(printWriter);
+		doNothing().when(requestDispatcher).include(request, response);
+		when(request.getSession(false)).thenReturn(session);
 		when(userServices.getUserDetails("neelam@gmail.com")).thenReturn(null);
 		when(response.encodeURL("LoginSuccess.jsp")).thenReturn("");
 		loginServlet.doPost(request, response);
